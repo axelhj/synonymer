@@ -1,9 +1,14 @@
 import assert from 'assert'
+import SynonymStore from '../src/synonyms/synonym-store'
 
-describe('Array', function () {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal([1, 2, 3].indexOf(4), -1);
+
+describe('SynonymStore', function () {
+  describe('The SynonymStore', function () {
+    it('should return a string value', function () {
+      const store = new SynonymStore();
+
+    "HelloSynonym";
+      assert.equal(store.mySynonym(), "HelloSynonym");
     });
   });
-});
+})

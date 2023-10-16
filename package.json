@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "tsc ./test/*.ts --noEmit false --target es2022 --allowSyntheticDefaultImports --moduleResolution node16 --module node16 --excludeDirectories ./node_modules --outDir test-build&&mocha test-build/*.js"
+    "test": "tsc ./test/*.ts --strict true --noEmit false --target es2022 --allowSyntheticDefaultImports --moduleResolution node16 --module node16 --excludeDirectories ./node_modules --outDir test-build&&mocha test-build/test/**/*.js"
   },
   "dependencies": {
     "next": "13.5.5",

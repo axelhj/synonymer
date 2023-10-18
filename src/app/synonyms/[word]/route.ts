@@ -1,10 +1,6 @@
 import singletonStore from '../../../synonyms/singleton-store';
 
-type SynonymRequest = {
-  term: string;
-  synonym: string;
-};
-
+// Fetch the synoonyms of a single word.
 export async function GET(
   request: Request,
   { params }: { params: { word: string } }) {

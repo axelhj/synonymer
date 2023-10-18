@@ -1,3 +1,8 @@
+// This class stores synonyms. They can be retrieved
+// as an unsortered list. Methods should be clear from names.
+// getSingle will return at moste one synonym regardless
+// of actual number. Similar but less random than  the google
+// "I feel lucky" button.
 class SynonymStore {
   store = new Map<string, Set<string>>();
 

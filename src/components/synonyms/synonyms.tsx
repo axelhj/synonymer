@@ -15,6 +15,8 @@ const FindSynonym = () => {
 
   const [synonyms, setSynonyms] = useState<string[]>([]);
 
+  const [initialState, setInitialState] = useState(true);
+
   const findSynonyms = async () => {
     if (!word) {
       setSynonyms([]);
@@ -22,6 +24,7 @@ const FindSynonym = () => {
       return;
     }
     const reponse = await getJson<Synonym>(routes.getSynonym(word));
+    setInitialState(false);
     setError("");
     setSynonyms((reponse?.synonyms || []).sort());
   };
@@ -36,6 +39,7 @@ const FindSynonym = () => {
     await postJson(routes.addSynonym, {
         word, synonym
     });
+    setInitialState(false);
     setWord(postedWord);
     setError("");
     findSynonyms();
@@ -95,7 +99,7 @@ const FindSynonym = () => {
             bg-gray-200 border-solid rounded-lg w-fit"
           >{foundSynonym}</p>
         )}
-        {(error || (word && synonyms.length)) ? null : <div className="mb-2 p-4 last:mb-0
+        {(initialState || error || (word && synonyms.length)) ? null : <div className="mb-2 p-4 last:mb-0
           bg-gray-200 border-solid rounded-lg w-fit">
           <p>Could not find synonyms{ word ? ` for ${word}` : ""}. Try saving some new!</p>
         </div>}

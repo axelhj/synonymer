@@ -17,15 +17,18 @@ const FindSynonym = () => {
 
   const findSynonyms = async () => {
     if (!word) {
+      setSynonyms([]);
       setError("Please enter a word before searching.");
       return;
     }
     const reponse = await getJson<Synonym>(routes.getSynonym(word));
+    setError("");
     setSynonyms((reponse?.synonyms || []).sort());
   };
 
   const addSynonym = async () => {
     if (!word || !synonym) {
+      setSynonyms([]);
       setError("Please enter a synonym before saving.");
       return;
     }
@@ -34,6 +37,7 @@ const FindSynonym = () => {
         word, synonym
     });
     setWord(postedWord);
+    setError("");
     findSynonyms();
   };
 
@@ -51,7 +55,7 @@ const FindSynonym = () => {
   return (
     <section>
       <h1 className="h1 font-semibold text-xl pb-6">Welcome to the synonyms-checker</h1>
-      <h2 className="h2 font-semibold text-lg pb-6">Save and check your synonyms here</h2>
+      <h2 className="h2 font-semibold text-lg pb-6">Save and check your synonyms</h2>
       <form onSubmit={onSubmit}>
         <div className="w-80 mb-5 text-base">
           <label htmlFor="word" className="block mb-2">Enter a word to begin</label>
@@ -90,7 +94,7 @@ const FindSynonym = () => {
           border-solid rounded-lg">
           <p>{foundSynonym}</p>
         </div>)}
-        {word && synonyms.length ? null : <div className="mb-2 p-4 last:mb-0
+        {(error || (word && synonyms.length)) ? null : <div className="mb-2 p-4 last:mb-0
           bg-gray-200 border-solid rounded-lg w-auto">
           <p>Could not find synonyms{ word ? ` for ${word}` : ""}. Try saving some new!</p>
         </div>}

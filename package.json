@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build-test": "tsc ./test/*.ts --strict true --noEmit false --target es2022 --allowSyntheticDefaultImports --moduleResolution node16 --module node16 --excludeDirectories ./node_modules --outDir test-build",
+    "build-test": "shopt -s globstar;tsc ./src/**/*.ts ./test/**/*.ts --strict true --noEmit false --target es2022 --allowSyntheticDefaultImports --moduleResolution node16 --module node16 --excludeDirectories ./node_modules --outDir test-build",
     "build-test:watch": "npm run build-test -- --watch",
     "mocha": "mocha test-build/test/**/*.js",
     "mocha:watch": "npm run mocha -- --watch",

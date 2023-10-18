@@ -1,30 +1,30 @@
 class SynonymStore {
-  store = new Map<string, string[]>();
+  store = new Map<string, Set<string>>();
 
   add(word: string, synonym: string) {
     let synonyms = this.store.get(word);
     if (synonyms) {
-      synonyms.push(synonym);
+      synonyms.add(synonym);
     } else {
-      this.store.set(word, [synonym]);
+      this.store.set(word, new Set([synonym]));
     }
     synonyms = this.store.get(synonym);
     if (synonyms) {
-      synonyms.push(word);
+      synonyms.add(word);
     } else {
-      this.store.set(synonym, [word]);
+      this.store.set(synonym, new Set([word]));
     }
   }
 
   getSingle(word: string) {
-    return this.store.get(word)?.[0];
+    return this.store.get(word)?.values().next().value;
   }
 
   get(word: string): string[] {
     const seen = new Set<string>();
     const stack: string[] = [];
-    let result = this.store.get(word) || [];
-    while (result.length) {
+    let result = this.store.get(word) || new Set();
+    while (result.size) {
       result?.forEach(item => {
         if (!seen.has(item)) {
           seen.add(item);
@@ -32,13 +32,20 @@ class SynonymStore {
         }
       });
       const top = stack.shift();
-      result = top && this.store.get(top ) || [];
+      result = top && this.store.get(top) || new Set();
     }
     return Array.from(seen).filter(item => item !== word);
   }
 
   toString() {
-    return JSON.stringify({items: Array.from(this.store.entries())});
+    return JSON.stringify({
+      items: Object.fromEntries(
+        Array.from(this.store .entries())
+          .map(([key, value]: [string, Set<string>]) =>
+            [key, Array.from(value.values())]
+          )
+      )
+    });
   }
 };
 

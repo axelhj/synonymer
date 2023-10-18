@@ -29,7 +29,18 @@ describe('SynonymStore', () => {
       store.add("ajax", "tvättmedel");
       store.add("sportbil", "ferrari");
       assert.notIncludeMembers(store.get("sportbil"), ["tvättmedel", "ajax", "fotbollsklubb"]);
-      assert.notIncludeMembers(store.get("ferarri"), ["ajax", "fotbollsklubb", "tvättmedel"]);
+      assert.notIncludeMembers(store.get("ferrari"), ["ajax", "fotbollsklubb", "tvättmedel"]);
+    });
+
+    it('re-adding term does not include the synonym more times', () => {
+      store.add("ajax", "tvättmedel");
+      store.add("ajax", "tvättmedel");
+      store.add("ajax", "tvättmedel");
+      store.add("ferrari", "sportbil");
+      store.add("ferrari", "sportbil");
+      store.add("ferrari", "sportbil");
+      assert.lengthOf(store.get("sportbil"), 1);
+      assert.lengthOf(store.get("ajax"), 2);
     });
 
     it('does include items from the same disjoint set of synonyms', () => {

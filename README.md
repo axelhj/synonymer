@@ -11,6 +11,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Alternatively, visit the deployed demo-site
 
-At-url
+At [url](https://synonymer.vercel.app/) (courtesy of Next.js/Vercel).
 
 ## This application is web-app that is all about managing synonyms

@@ -89,19 +89,20 @@ const FindSynonym = () => {
           >Add</button>
         </div>
       </form>
-      <div className="text-base">
-        {synonyms.map(foundSynonym => <div className="mb-2 p-4 last:mb-0 bg-gray-200
-          border-solid rounded-lg">
-          <p>{foundSynonym}</p>
-        </div>)}
+      <div className="text-base flex flex-col">
+        {synonyms.map(foundSynonym =>
+          <p key={foundSynonym} className="mb-2 p-4 last:mb-0
+            bg-gray-200 border-solid rounded-lg w-fit"
+          >{foundSynonym}</p>
+        )}
         {(error || (word && synonyms.length)) ? null : <div className="mb-2 p-4 last:mb-0
-          bg-gray-200 border-solid rounded-lg w-auto">
+          bg-gray-200 border-solid rounded-lg w-fit">
           <p>Could not find synonyms{ word ? ` for ${word}` : ""}. Try saving some new!</p>
         </div>}
-        {error ? <div className="p-7 text-red-950 bg-red-100 border-red-400 border-2
-          border-solid rounded-lg">
-          <p>{error}</p>
-        </div> : null}
+        {error ? <p className="p-7 text-red-950 bg-red-100 border-red-400 border-2
+          border-solid rounded-lg w-fit"
+        >{error}</p> :
+        null}
       </div>
     </section>
   );

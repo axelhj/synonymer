@@ -1,9 +1,22 @@
+import singletonStore from '../../synonyms/singleton-store';
 
-export async function GET(request: Request) {
-  return Response.json({ h: "Hi" });
-}
+type SynonymRequest = {
+  term: string;
+  synonym: string;
+};
 
 export async function POST(request: Request) {
-  console.log((await request.json()).hej);
-  return Response.json("aa");
+  const data = await request.json() as SynonymRequest;
+  if (
+    typeof (data?.term) !== 'string' ||
+    typeof (data?.synonym) !== 'string' ||
+    singletonStore.store
+      .get(data.synonym)
+      .includes(data.synonym)
+  ) {
+    return new Response(null, {status: 400});
+  }
+console.log(`  adding ("${data.term}, ${data.synonym}")`)
+  singletonStore.store.add(data.term, data.synonym);
+  return new Response(null, { status: 204 });
 }

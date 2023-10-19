@@ -13,4 +13,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 At [url](https://synonymer.vercel.app/) (courtesy of Next.js/Vercel).
 
-## This application is web-app that is all about managing synonyms
+### This application is web-app that is all about managing synonyms
